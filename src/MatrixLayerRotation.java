@@ -29,51 +29,59 @@ public class MatrixLayerRotation {
         // Final matrix where result printed will be stored
         int[][] finalMatrix = new int[rows][cols];
 
-        // Peform r number of shifts as specified
-        for (int rot = 0; rot < r; rot++) {
-            // Boundaries of rows and columns for inner squares of matrix
-            int str = rows-1;
-            int stc = cols-1;
-            int k = 0; int l =0;
-            // As long as we know both k and l are less than str and stc respectively, we have another inner square to shift values
-            while(k<str && l<stc) {
-                int c = 0, d =0;
-                // Shift matrix values of last column of inner square
-                for (int i = str; i > k; i--) {
-                    finalMatrix[i-1][stc] = tempMatrix[i][stc];
-                    // Keep track of row where we left off
-                    c= i-1;
-                }
-                // Shift matrix values for first row of inner square
-                for (int j = stc; j >l; j--) {
-                    finalMatrix[c][j-1] = tempMatrix[c][j];
-                    // Keep track of column where we left off
-                    d = j-1;
-                }
-                // Shift matrix values for first column of inner square
-                for (int i = k; i < str; i++) {
-                    finalMatrix[i+1][d] = tempMatrix[i][d];
-                    // Keep track of row where we left off
-                    c=i+1;
-                }
-                // Shift matrix values for last row of inner square
-                for (int j = l; j < stc; j++) {
-                    finalMatrix[c][j+1] = tempMatrix[c][j];
-                }
-                // Update values in order to go to the next inner square
-                str--;
-                stc--;
-                k++;
-                l++;
+        // Boundaries of rows and columns for inner squares of matrix
+        int str = rows-1;
+        int stc = cols-1;
+        int k = 0; int l =0;
+        Queue<Integer> q = new LinkedList<>();
+
+        // As long as we know both k and l are less than str and stc respectively, we have another inner square to shift values
+        while(k<str && l<stc) {
+            // Calculate actual number of blocks we need to shift
+            int totalBlocksInSquare = (2 * (str - k)) + (2 * (stc - l));
+            int blocksToShift = r % totalBlocksInSquare;
+            // Gather matrix values for last row of inner square
+            for (int j = stc; j >= l; j--) {
+                q.add(tempMatrix[str][j]);
             }
-            // As long as we are not in the last rotation shift, update the temporary matrix
-            if (rot != r-1) {
-                for (int row = 0; row < rows; row++) {
-                    for (int col = 0; col < cols; col++) {
-                        tempMatrix[row][col] = finalMatrix[row][col];
-                    }
-                }
+            // Gather matrix values for first column of inner square
+            for (int i = (str-1); i >= k; i--) {
+                q.add(tempMatrix[i][l]);
             }
+            // Gather matrix values for first row of inner square
+            for (int j = (l+1); j <= stc; j++) {
+                q.add(tempMatrix[k][j]);
+            }
+            // Gather matrix values of last column of inner square
+            for (int i = (k+1); i < str; i++) {
+                q.add(tempMatrix[i][stc]);
+            }
+            // Adjust queue elements based on blocks we need to shift
+            for (int i = 0; i < blocksToShift; i++) {
+                q.add(q.remove());
+            }
+            // Shift matrix values for last row of inner square
+            for (int j = stc; j >= l; j--) {
+                finalMatrix[str][j] = q.remove();
+            }
+            // Shift matrix values for first column of inner square
+            for (int i = (str-1); i >= k; i--) {
+                finalMatrix[i][l] = q.remove();
+            }
+            // Shift matrix values for first row of inner square
+            for (int j = (l+1); j <= stc; j++) {
+                finalMatrix[k][j] = q.remove();
+            }
+            // Shift matrix values of last column of inner square
+            for (int i = (k+1); i < str; i++) {
+                finalMatrix[i][stc] = q.remove();
+            }
+
+            // Update values in order to go to the next inner square
+            str--;
+            stc--;
+            k++;
+            l++;
         }
 
         // Print the final matrix
