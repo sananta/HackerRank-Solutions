@@ -3,13 +3,11 @@
         <img height=85 src="https://d3keuzeb2crhkn.cloudfront.net/hackerrank/assets/styleguide/logo_wordmark-f5c5eb61ab0a154c3ed9eda24d0b9e31.svg">
     </a>
     <br>
+</p>
 
 * [30 Days of Code](#30-days-of-code)
 * [Algorithms](#algorithms)
 * [Java](#java)
-
-Solutions are coded using Java 8
-
 
 # 30 Days of Code
 
@@ -159,4 +157,3 @@ Solutions are coded using Java 8
 |           Advanced          | [Java MD5](https://www.hackerrank.com/challenges/java-md5)                                                               |   30   | [Solution.java](https://github.com/RodneyShag/HackerRank_solutions/blob/master/Java/Advanced/Java%20MD5/Solution.java)                                                                |
 |           Advanced          | [Java SHA-256](https://www.hackerrank.com/challenges/sha-256)                                                            |   30   | [Solution.java](https://github.com/RodneyShag/HackerRank_solutions/blob/master/Java/Advanced/Java%20SHA-256/Solution.java)                                                            |
 
-</p>
