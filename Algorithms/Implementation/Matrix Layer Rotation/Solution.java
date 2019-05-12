@@ -10,7 +10,7 @@ import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-public class MatrixLayerRotation {
+public class Solution {
 
     static int rows = 0;
     static int cols = 0;
@@ -94,7 +94,6 @@ public class MatrixLayerRotation {
             }
             System.out.println("");
         }
-
     }
 
     public static void main(String[] args) throws IOException {
@@ -107,6 +106,9 @@ public class MatrixLayerRotation {
         int n = Integer.parseInt(mnr[1]);
 
         int r = Integer.parseInt(mnr[2]);
+
+        rows = m;
+        cols = n;
 
         List<List<Integer>> matrix = new ArrayList<>();
 
